@@ -1,0 +1,226 @@
+/* Layout: bandas de ancho completo (miel / panal / negro abeja) con un contenedor central de 1040px;
+   el panal de hexágonos del hero y la franja rayada son los únicos adornos. */
+:root {
+  --bg: #fff7d6;
+  --surface: #fffdf3;
+  --fg: #1c1808;
+  --muted: #5f5530;
+  --line: #e6d48a;
+  --honey: #ffc81a;
+  --honey-deep: #e89c00;
+  --on-honey: #1c1808;
+  --ink: #1c1808;
+  --on-ink: #ffe27a;
+  --focus: #7a4b00;
+  --display: "Bricolage Grotesque", "Trebuchet MS", system-ui, sans-serif;
+  --body: "Nunito Sans", "Segoe UI", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #15120a; --surface: #211c0e; --fg: #fdf1c4; --muted: #c2b47e; --line: #4a3f1a;
+    --honey: #ffc81a; --honey-deep: #ffb300; --on-honey: #1c1808;
+    --ink: #0b0904; --on-ink: #ffe27a; --focus: #ffe27a; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #15120a; --surface: #211c0e; --fg: #fdf1c4; --muted: #c2b47e; --line: #4a3f1a;
+  --honey: #ffc81a; --honey-deep: #ffb300; --on-honey: #1c1808;
+  --ink: #0b0904; --on-ink: #ffe27a; --focus: #ffe27a; color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--body); font-size: 17px; line-height: 1.6; }
+.wrap { max-width: 1040px; margin-inline: auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+h1, h2, h3 { font-family: var(--display); font-weight: 800; line-height: 1.05; margin: 0; text-wrap: balance; letter-spacing: -0.02em; }
+h2, h1.page { font-size: clamp(1.8rem, 4.5vw, 2.6rem); }
+p { margin: 0; }
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; border-radius: 4px; }
+
+/* Encabezado */
+.top { background: var(--honey); color: var(--on-honey); }
+.top .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 24px; padding-block: 14px; }
+.brand { font-family: var(--display); font-weight: 800; font-size: 1.35rem; text-decoration: none; letter-spacing: -0.02em; }
+.top nav { display: flex; flex-wrap: wrap; gap: 4px 20px; font-weight: 800; font-size: 0.95rem; }
+.top nav a { text-decoration: none; border-bottom: 2px solid transparent; }
+.top nav a:hover { border-bottom-color: var(--on-honey); }
+
+/* Hero */
+.hero { background: var(--honey); color: var(--on-honey); }
+.hero .wrap { display: grid; grid-template-columns: 1.25fr 1fr; gap: 32px; align-items: center; padding-block: 40px 56px; }
+.hero h1 { font-size: clamp(2.5rem, 7.5vw, 4.6rem); }
+.hero p { font-size: 1.15rem; max-width: 46ch; margin-top: 20px; }
+.cta-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+.btn { display: inline-block; font-family: var(--body); font-weight: 800; font-size: 1rem; text-decoration: none; padding: 13px 22px; border-radius: 999px; border: 2px solid var(--ink); cursor: pointer; }
+.btn-dark { background: var(--ink); color: var(--on-ink); }
+.btn-dark:hover { background: #3a3110; }
+.btn-line { background: transparent; color: var(--on-honey); }
+.btn-line:hover { background: rgba(28, 24, 8, 0.1); }
+.btn:disabled, .btn[aria-disabled="true"] { opacity: 0.45; cursor: not-allowed; pointer-events: none; }
+
+.mascot { margin: 0; max-width: 400px; width: 100%; justify-self: center; }
+.mascot img { display: block; width: 100%; height: auto; filter: drop-shadow(0 18px 14px rgba(28, 24, 8, 0.28)); }
+.mascot.small { max-width: 190px; justify-self: start; }
+.brand { display: inline-flex; align-items: center; gap: 8px; }
+.brand img { width: auto; height: 46px; }
+
+.stripes { height: 18px; background: repeating-linear-gradient(90deg, var(--ink) 0 46px, var(--honey) 46px 92px); }
+
+/* Secciones */
+section .wrap { padding-block: 64px; }
+.lead { color: var(--muted); max-width: 60ch; margin-top: 12px; }
+
+/* Precios */
+.plans { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 32px; align-items: stretch; }
+.plan { background: var(--surface); border: 2px solid var(--line); border-radius: 22px; padding: 26px 24px; display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+.plan h3 { font-size: 1.35rem; }
+.price { font-family: var(--display); font-weight: 800; font-size: 3rem; line-height: 1; font-variant-numeric: tabular-nums; letter-spacing: -0.03em; }
+.price small { font-family: var(--body); font-size: 0.9rem; font-weight: 800; letter-spacing: 0.06em; margin-left: 6px; }
+.plan ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; flex: 1; }
+.plan li { padding-left: 22px; position: relative; }
+.plan li::before { content: ""; position: absolute; left: 0; top: 0.5em; width: 11px; height: 12px; background: var(--honey-deep); clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%); }
+.plan .btn { text-align: center; border-color: var(--fg); color: var(--fg); background: transparent; }
+.plan .btn:hover { background: var(--honey); color: var(--on-honey); border-color: var(--honey); }
+.plan.star { background: var(--ink); color: var(--on-ink); border-color: var(--ink); }
+.plan.star li::before { background: var(--honey); }
+.plan.star .btn { background: var(--honey); color: var(--on-honey); border-color: var(--honey); }
+.tag { align-self: flex-start; font-size: 0.75rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; background: var(--honey); color: var(--on-honey); padding: 3px 10px; border-radius: 999px; }
+
+/* Pasos */
+.how { background: var(--surface); border-block: 2px solid var(--line); }
+.steps { list-style: none; margin: 32px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; counter-reset: paso; }
+.steps li { counter-increment: paso; min-width: 0; }
+.steps li::before { content: counter(paso); display: grid; place-items: center; width: 54px; aspect-ratio: 1 / 1.1547; clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%); background: var(--honey); color: var(--on-honey); font-family: var(--display); font-weight: 800; font-size: 1.5rem; margin-bottom: 14px; }
+.steps h3 { font-size: 1.25rem; margin-bottom: 6px; }
+.steps p { color: var(--muted); }
+
+/* Cierre */
+.final .wrap { display: grid; grid-template-columns: auto 1fr; gap: 40px; align-items: center; }
+.final-text { display: grid; gap: 18px; justify-items: start; min-width: 0; }
+.final .lead { margin-top: 0; }
+.final .btn-dark { border-color: var(--honey); background: var(--honey); color: var(--on-honey); font-size: 1.1rem; padding: 15px 28px; }
+.final .btn-dark:hover { background: var(--honey-deep); }
+.legal { font-size: 0.9rem; color: var(--muted); }
+
+/* Privacidad */
+.privacy { background: var(--bg); }
+.back { display: inline-block; font-weight: 800; margin-bottom: 20px; }
+.privacy .cols { display: grid; gap: 22px; margin-top: 28px; max-width: 70ch; }
+.privacy h3 { font-size: 1.15rem; margin-bottom: 6px; }
+.privacy ul, .privacy ol { margin: 6px 0; padding-left: 20px; }
+.privacy .updated { font-weight: 800; font-size: 0.9rem; margin-top: 10px; color: var(--muted); }
+.privacy a { overflow-wrap: anywhere; }
+.privacy p, .privacy li { color: var(--muted); }
+.privacy strong { color: var(--fg); }
+
+footer { background: var(--ink); color: var(--on-ink); }
+footer .wrap { padding-block: 26px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; font-size: 0.95rem; }
+
+@media (max-width: 780px) {
+  .hero .wrap { grid-template-columns: 1fr; }
+  .plans, .steps { grid-template-columns: 1fr; }
+  .mascot { max-width: 260px; }
+  .final .wrap { grid-template-columns: 1fr; gap: 28px; }
+  .mascot.small { max-width: 150px; }
+  section .wrap { padding-block: 48px; }
+}
+
+/* Botón flotante de WhatsApp */
+.abejita-boton { position: fixed; z-index: 30; right: calc(16px + env(safe-area-inset-right, 0px)); bottom: calc(16px + env(safe-area-inset-bottom, 0px)); display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.abejita-circulo { position: relative; display: block; width: 86px; height: 86px; }
+.abejita-dibujo { display: block; width: 100%; height: 100%; overflow: visible; filter: drop-shadow(0 7px 7px rgba(28, 24, 8, 0.35)); }
+.abejita-sello { position: absolute; right: -2px; bottom: 0; width: 30px; height: 30px; border-radius: 50%; border: 2px solid #ffffff; background: #25d366; }
+.abejita-texto { background: var(--ink); color: var(--on-ink); font-weight: 800; font-size: 0.9rem; padding: 8px 14px; border-radius: 999px; box-shadow: 0 6px 14px rgba(28, 24, 8, 0.3); }
+footer .wrap { padding-bottom: 110px; }
+@media (max-width: 560px) { .abejita-texto { display: none; } }
+
+/* Promesa de pago en el hero */
+.hero .promesa { display: inline-flex; align-items: center; gap: 10px; margin: 0 0 22px; max-width: none; background: var(--ink); color: var(--on-ink); font-weight: 800; font-size: 1.05rem; line-height: 1.25; padding: 10px 18px 10px 10px; border-radius: 999px; position: relative; overflow: hidden; box-shadow: 5px 5px 0 rgba(28, 24, 8, 0.25); }
+.promesa svg { width: 30px; height: 30px; flex: none; }
+.promesa circle { fill: #25d366; }
+.promesa path { fill: none; stroke: #ffffff; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 20; stroke-dashoffset: 0; }
+.lead strong { color: var(--fg); }
+
+/* Animaciones */
+.sky { display: none; }
+.btn { position: relative; overflow: hidden; transition: transform 0.18s ease, background-color 0.18s ease, color 0.18s ease; }
+.hero .btn-dark { --ring: rgba(28, 24, 8, 0.4); }
+.final .btn-dark, .plan.star .btn { --ring: rgba(255, 200, 26, 0.55); }
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Botones: se levantan al pasar el cursor, laten y les cruza un brillo */
+  .btn:hover { transform: translateY(-3px) scale(1.04); }
+  .btn:active { transform: translateY(0) scale(0.97); }
+  .btn-dark, .plan.star .btn { animation: latido 2.2s ease-out infinite; }
+  @keyframes latido {
+    0% { box-shadow: 0 0 0 0 var(--ring); }
+    70%, 100% { box-shadow: 0 0 0 16px transparent; }
+  }
+  .btn-dark::after, .plan .btn::after {
+    content: ""; position: absolute; top: 0; bottom: 0; left: -60%; width: 40%;
+    background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+    transform: skewX(-20deg); animation: brillo 3.4s ease-in-out infinite; pointer-events: none;
+  }
+  .plan .btn::after { animation-delay: 1.1s; }
+  @keyframes brillo { 0%, 55% { left: -60%; } 100% { left: 130%; } }
+
+  /* Hero: el texto entra y el astronauta flota */
+  .hero h1, .hero p, .hero .cta-row { animation: entrar 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) backwards; }
+  .hero p { animation-delay: 0.12s; }
+  .hero .cta-row { animation-delay: 0.24s; }
+  @keyframes entrar { from { opacity: 0; transform: translateY(22px); } }
+  .mascot img { animation: flotar 4.5s ease-in-out infinite; }
+  .mascot.small img { animation-duration: 3.6s; }
+  @keyframes flotar { 0%, 100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-16px) rotate(2deg); } }
+
+  /* Franja de abeja en movimiento */
+  .stripes { animation: franja 2.5s linear infinite; }
+  @keyframes franja { to { background-position: 92px 0; } }
+
+  /* Botón flotante: late, la abeja se mece y crece al pasar el cursor */
+  .abejita-circulo { transition: transform 0.2s ease; }
+  .abejita-boton:hover .abejita-circulo { transform: scale(1.12) rotate(-6deg); }
+  .abejita-dibujo { animation: mecer 2.4s ease-in-out infinite; }
+  .abejita-dibujo .ala { animation: batir 0.16s linear infinite alternate; }
+  .abejita-dibujo .ala-izq { transform-origin: 40px 46px; }
+  .abejita-dibujo .ala-der { transform-origin: 60px 46px; }
+  .abejita-sello { animation: latido-abejita 2.2s ease-out infinite; }
+  @keyframes latido-abejita {
+    0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+    70%, 100% { box-shadow: 0 0 0 14px rgba(37, 211, 102, 0); }
+  }
+  @keyframes mecer { 0%, 100% { transform: translateY(0) rotate(-5deg); } 50% { transform: translateY(-7px) rotate(5deg); } }
+  @keyframes batir { from { transform: rotate(0deg) scaleY(1); } to { transform: rotate(0deg) scaleY(0.55); } }
+
+  /* Promesa de pago: entra rebotando, se sacude cada tanto, el chulo se dibuja y le cruza un brillo */
+  .hero .promesa { animation: caer 0.8s cubic-bezier(0.3, 1.6, 0.5, 1) backwards, sacudir 4s ease-in-out 1.2s infinite; transform-origin: 20% 50%; }
+  .promesa svg { animation: saltar 4s ease-in-out 1.2s infinite; }
+  .promesa path { animation: chulo 4s ease-out 0.5s infinite; }
+  .promesa::after { content: ""; position: absolute; top: 0; bottom: 0; left: -40%; width: 30%; background: linear-gradient(100deg, transparent, rgba(255, 226, 122, 0.5), transparent); transform: skewX(-20deg); animation: brillo 4s ease-in-out infinite; }
+  @keyframes caer { from { opacity: 0; transform: translateY(-40px) rotate(-8deg) scale(0.7); } }
+  @keyframes sacudir { 0%, 12%, 100% { transform: rotate(0) scale(1); } 2% { transform: rotate(-3deg) scale(1.05); } 5% { transform: rotate(3deg) scale(1.05); } 8% { transform: rotate(-2deg) scale(1.03); } }
+  @keyframes saltar { 0%, 14%, 100% { transform: scale(1); } 6% { transform: scale(1.3); } }
+  @keyframes chulo { 0% { stroke-dashoffset: 20; } 12%, 100% { stroke-dashoffset: 0; } }
+
+  /* Tarjetas y pasos */
+  .plan { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+  .plan:hover { transform: translateY(-6px); box-shadow: 0 14px 0 -6px var(--honey-deep); }
+  .steps li::before { transition: transform 0.3s ease; }
+  .steps li:hover::before { transform: rotate(60deg) scale(1.1); }
+  .brand img { animation: flotar 3s ease-in-out infinite; }
+
+  /* Rastro de vuelo: una abejita recorre la pantalla dejando una línea punteada */
+  .sky { display: block; position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: 20; }
+  .sky svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .sky .tall { display: none; }
+  @media (max-aspect-ratio: 1/1) { .sky .wide { display: none; } .sky .tall { display: block; } }
+  .sky .halo { stroke: rgba(255, 255, 255, 0.2); stroke-width: 4; }
+  .sky .trail { stroke: rgba(28, 24, 8, 0.35); stroke-width: 1.8; stroke-dasharray: 1 12; }
+  .sky .body { fill: #ffc81a; stroke: #1c1808; stroke-width: 1.5; }
+  .sky .stripe { stroke: #1c1808; stroke-width: 3; fill: none; }
+  .sky .eye { fill: #1c1808; }
+  .sky .wings ellipse { fill: rgba(255, 255, 255, 0.85); stroke: #1c1808; stroke-width: 1; }
+  .sky .wings { transform-origin: 0 -2px; animation: aleteo 0.12s linear infinite alternate; }
+  @keyframes aleteo { from { transform: scaleY(1); } to { transform: scaleY(0.45); } }
+}
